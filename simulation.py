@@ -6,6 +6,8 @@ LOOPS = 1000
 current_loop = 0
 
 physicsClient = p.connect(p.GUI)
+
+p.loadSDF("box.sdf")
 while current_loop < LOOPS:
 
     p.stepSimulation()
