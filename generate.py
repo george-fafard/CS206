@@ -22,7 +22,7 @@ def Create_Robot():
     pyrosim.Start_URDF("body.urdf")
     pyrosim.Send_Cube(name="Torso", pos=[x, y, z+1], size=[length, width, height])
     pyrosim.Send_Joint(name="Torso_Front_Leg", parent="Torso", child="FrontLeg", type="revolute", position="0.5 0 1")
-    pyrosim.Send_Cube(name="FrontLeg", pos=[x+0.5, y, z-1*], size=[length, width, height])
+    pyrosim.Send_Cube(name="FrontLeg", pos=[x+0.5, y, z-1], size=[length, width, height])
     pyrosim.Send_Joint(name="Torso_Back_Leg", parent="Torso", child="BackLeg", type="revolute", position="-0.5 0 1")
     pyrosim.Send_Cube(name="BackLeg", pos=[x-0.5, y, z-1], size=[length, width, height])
     pyrosim.End()
