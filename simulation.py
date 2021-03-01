@@ -70,7 +70,6 @@ for i in range(0,  LOOPS):
 
 np.save("data/backlegout.npy", backLegSensorValues)
 np.save("data/frontlegout.npy", frontLegSensorValues)
-np.save("data/sinout.npy", targetAngles)
 
 
 p.disconnect()
