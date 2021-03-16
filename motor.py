@@ -9,7 +9,7 @@ class MOTOR:
         self.jointName = jointName
         self.motorValues = np.zeros(c.LOOPS)
 
-    def Set_Value(self, robot, index):
+    def Set_Value(self, robot, desiredAngle):
         pyrosim.Set_Motor_For_Joint(
 
             bodyIndex=robot,
@@ -18,7 +18,7 @@ class MOTOR:
 
             controlMode=p.POSITION_CONTROL,  # in radians
 
-            targetPosition=self.motorValues[index],  # in radians
+            targetPosition=desiredAngle,  # in radians
 
             maxForce=c.newtons)  # in newton meters
 

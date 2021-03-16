@@ -15,11 +15,11 @@ class SIMULATION:
         self.robot = ROBOT()
 
 
-
     def Run(self):
         for i in range(0, c.LOOPS):
             p.stepSimulation()
             self.robot.Sense(i)
+            self.robot.Think()
             self.robot.Act(i)
             # motors!!
             # back leg
