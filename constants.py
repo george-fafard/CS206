@@ -17,7 +17,7 @@ amplitude_back = np.pi/2.0
 frequency_back = 6
 phaseOffset_back = 0
 
-newtons = 8  # Force for motors
+newtons = 20  # Force for motors
 
 # target stuff calculated from leg values
 
