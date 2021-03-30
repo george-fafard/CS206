@@ -7,15 +7,17 @@ import time as t
 
 
 class SIMULATION:
-    def __init__(self):
-        self.physicsClient = p.connect(p.GUI)
+    def __init__(self, directOrGUI):
+        if directOrGUI.lower() == "direct":
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(c.GRAV_X, c.GRAV_Y, c.GRAV_Z)
         self.world = WORLD()
         self.robot = ROBOT()
 
-
-    def Run(self):
+    def Run(self, directOrGUI):
         for i in range(0, c.LOOPS):
             p.stepSimulation()
             self.robot.Sense(i)
@@ -24,7 +26,8 @@ class SIMULATION:
             # motors!!
             # back leg
             # front leg
-            t.sleep(c.fraction_second)
+            if directOrGUI.lower() == "gui":
+                t.sleep(c.fraction_second)
 
     def __del__(self):
         # for sensor in self.robot.sensors:
@@ -32,3 +35,6 @@ class SIMULATION:
         # for motor in self.robot.motors:
         #     self.robot.motors[motor].Save_Values()
         p.disconnect()
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()

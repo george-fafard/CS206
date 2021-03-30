@@ -1,11 +1,22 @@
 import numpy as np
 
+# number of generations
+numberOfGenerations = 10
+
 # common constants
 LOOPS = 1000
 fraction_second = 1/240
 GRAV_X = 0
 GRAV_Y = 0
 GRAV_Z = -9.8
+
+# some robot and world values
+x = 0
+y = 0
+z = 0.5
+length = 1
+width = 1
+height = 1
 
 # front leg values
 amplitude_front = np.pi/6.0
