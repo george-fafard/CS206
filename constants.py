@@ -1,7 +1,7 @@
 import numpy as np
 
 # number of generations
-numberOfGenerations = 10
+numberOfGenerations = 100
 
 # common constants
 LOOPS = 1000
