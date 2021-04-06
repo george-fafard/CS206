@@ -1,7 +1,8 @@
 import numpy as np
 
 # number of generations
-numberOfGenerations = 100
+numberOfGenerations = 10
+populationSize = 10
 
 # common constants
 LOOPS = 1000
