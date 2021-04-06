@@ -65,3 +65,4 @@ class PARALLEL_HILL_CLIMBER:
                 lowest = self.parents[speeddemon].fitness
                 myKey = speeddemon
         self.parents[myKey].Start_Simulation("GUI")
+
