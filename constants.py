@@ -1,8 +1,16 @@
 import numpy as np
 
+
 # number of generations
 numberOfGenerations = 10
 populationSize = 10
+
+# motor joint range (bias searching)
+motorJointRange = 0.3
+
+# number of neurons
+numSensorNeurons = 9
+numMotorNeurons = 8
 
 # common constants
 LOOPS = 1000
