@@ -6,20 +6,21 @@ import numpy as np
 import constants as c
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
+import time
+
 
 class ROBOT:
-    def __init__(self, solutionID):
+    def __init__(self, solutionID, swarmID):
         self.motors = {}
 
-        self.robot = p.loadURDF("body.urdf")
-        pyrosim.Prepare_To_Simulate("body.urdf")
+        self.robot = p.loadURDF("body" + str(swarmID) + ".urdf")
+        pyrosim.Prepare_To_Simulate("body" + str(swarmID) + ".urdf")
         self.nn = NEURAL_NETWORK("brain"+str(solutionID)+".nndf")
         self.PrepareToSense()
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
         self.myID = solutionID
 
-        os.system("del brain"+str(solutionID)+".nndf")
 
     def PrepareToSense(self):
         self.sensors = {}
@@ -42,11 +43,11 @@ class ROBOT:
     def Think(self):
         self.nn.Update()
 
-    def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robot, 0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
-        outFile = open("tmp"+str(self.myID)+".txt", "w")
-        outFile.write(str(xCoordinateOfLinkZero))
+    def Get_Fitness(self, swarmID):
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+        basePosition = basePositionAndOrientation[0]
+        xPosition = basePosition[0]
+        outFile = open("tmp"+str(self.myID) + "." + str(swarmID) + ".txt", "w")
+        outFile.write(str(xPosition))
         outFile.close()
-        os.system("rename tmp"+str(self.myID)+".txt fitness"+str(self.myID)+".txt")
+        os.system("rename tmp"+str(self.myID)+ "." + str(swarmID) + ".txt fitness"+str(self.myID)+ "." + str(swarmID) +".txt")

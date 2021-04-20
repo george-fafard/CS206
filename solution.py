@@ -4,7 +4,7 @@ import constants as c
 import os
 import random
 import time
-
+import constants as c
 
 class SOLUTION:
     def __init__(self, ID):
@@ -19,33 +19,38 @@ class SOLUTION:
 
     def Start_Simulation(self, dOrG):
         self.Create_World()
-        self.Create_Body()
         self.Create_Brain()
+        for i in range(0, c.swarmSize):
+            self.Create_Body(i)
 
-        # go go go
         os.system("start /B python simulate.py " + dOrG + " " + str(self.myID))
 
     def Wait_For_Simulation_To_End(self):
-        while not os.path.exists("fitness"+str(self.myID)+".txt"):
-            time.sleep(0.01)
+        low = 99999
+        for i in range(0, c.swarmSize):
+            while not os.path.exists("fitness" + str(self.myID) + "." + str(i) + ".txt"):
+                time.sleep(0.01)
+            inFile = open("fitness"+str(self.myID)+"." + str(i) + ".txt", 'r')
+            temp_fitness = float(inFile.read())
+            inFile.close()
+            os.system("del fitness" + str(self.myID) + "." + str(i) + ".txt")
+            if temp_fitness < low:
+                low = temp_fitness
+        self.fitness = low
 
-        inFile = open("fitness"+str(self.myID)+".txt", 'r')
-        self.fitness = float(inFile.read())
-        inFile.close()
-        os.system("del fitness"+str(self.myID)+".txt")
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")  # name of our world
         pyrosim.Send_Cube(name="Box", pos=[c.x + 1.5, c.y + 1.5, c.z], size=[c.length, c.width, c.height])  # make a box :D
         pyrosim.End()  # the end
 
-    def Create_Body(self):
-        pyrosim.Start_URDF("body.urdf")
-        pyrosim.Send_Cube(name="Torso", pos=[c.x, c.y, c.z + 1], size=[c.length, c.width, c.height])
+    def Create_Body(self, loop):
+        pyrosim.Start_URDF("body" + str(loop) + ".urdf")
+        pyrosim.Send_Cube(name="Torso", pos=[c.x, c.y + loop, c.z + 1], size=[c.length, c.width, c.height])
         pyrosim.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute", position="0.5 0 1")
-        pyrosim.Send_Cube(name="FrontLeg", pos=[c.x + 0.5, c.y, c.z - 1], size=[c.length, c.width, c.height])
+        pyrosim.Send_Cube(name="FrontLeg", pos=[c.x + 0.5, c.y + loop, c.z - 1], size=[c.length, c.width, c.height])
         pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position="-0.5 0 1")
-        pyrosim.Send_Cube(name="BackLeg", pos=[c.x - 0.5, c.y, c.z - 1], size=[c.length, c.width, c.height])
+        pyrosim.Send_Cube(name="BackLeg", pos=[c.x - 0.5, c.y + loop, c.z - 1], size=[c.length, c.width, c.height])
         pyrosim.End()
 
     def Create_Brain(self):

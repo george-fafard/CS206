@@ -1,8 +1,9 @@
 import numpy as np
 
 # number of generations
-numberOfGenerations = 10
-populationSize = 10
+numberOfGenerations = 1
+populationSize = 1
+swarmSize = 5
 
 # common constants
 LOOPS = 1000
