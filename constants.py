@@ -3,11 +3,12 @@ import numpy as np
 # number of generations
 numberOfGenerations = 10
 populationSize = 10
-swarmSize = 10
+swarmSize = 9
+NUM_BOXES = 10
 
 # common constants
-LOOPS = 1000
-fraction_second = 1/240
+LOOPS = 5000
+fraction_second = 1/120
 GRAV_X = 0
 GRAV_Y = 0
 GRAV_Z = -9.8
@@ -30,7 +31,7 @@ amplitude_back = np.pi/2.0
 frequency_back = 6
 phaseOffset_back = 0
 
-newtons = 20  # Force for motors
+newtons = 40  # Force for motors
 
 # target stuff calculated from leg values
 

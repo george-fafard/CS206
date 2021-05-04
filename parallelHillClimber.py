@@ -28,7 +28,8 @@ class PARALLEL_HILL_CLIMBER:
     def Print(self):
         print("\n")
         for i in self.parents:
-            print("Previous best Swarm fitness: " + str(self.parents[i].fitness) + " child: " + str(self.children[i].fitness))
+            print("Best individual Swarm member fitness: " + str(self.parents[i].fitness) + " best child swarm memmber fitness: " + str(self.children[i].fitness))
+            print("Overall swarm fitness: " + str(self.parents[i].swarmFitness) + " child overall swarm fitness: " + str(self.children[i].swarmFitness))
         print("\n")
 
     def Spawn(self):
@@ -65,5 +66,5 @@ class PARALLEL_HILL_CLIMBER:
                 lowest = self.parents[speeddemon].fitness
                 myKey = speeddemon
         self.parents[myKey].Start_Simulation("GUI")
-        print("winning fitness: " + str(self.parents[myKey].fitness))
+        print("Most Effective Swarm Fitness: " + str(self.parents[myKey].fitness))
 
