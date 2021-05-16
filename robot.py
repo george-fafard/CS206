@@ -12,10 +12,11 @@ import time
 class ROBOT:
     def __init__(self, solutionID, swarmID):
         self.motors = {}
-
-        self.robot = p.loadURDF("body" + str(swarmID) + ".urdf")
-        pyrosim.Prepare_To_Simulate("body" + str(swarmID) + ".urdf")
-        self.nn = NEURAL_NETWORK("brain"+str(solutionID)+".nndf")
+        while not os.path.exists(r"body" + str(swarmID) + ".urdf"):
+            time.sleep(0.01)
+        self.robot = p.loadURDF(r"body" + str(swarmID) + ".urdf")
+        pyrosim.Prepare_To_Simulate(r"body" + str(swarmID) + ".urdf")
+        self.nn = NEURAL_NETWORK(r"brain"+str(solutionID)+".nndf")
         self.PrepareToSense()
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName)
@@ -47,7 +48,7 @@ class ROBOT:
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
         basePosition = basePositionAndOrientation[0]
         xPosition = basePosition[0]
-        outFile = open("tmp"+str(self.myID) + "." + str(swarmID) + ".txt", "w")
+        outFile = open(r"tmp"+str(self.myID) + "." + str(swarmID) + ".txt", "w")
         outFile.write(str(xPosition))
         outFile.close()
         os.system("rename tmp"+str(self.myID)+ "." + str(swarmID) + ".txt fitness"+str(self.myID)+ "." + str(swarmID) +".txt")

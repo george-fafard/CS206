@@ -29,7 +29,8 @@ class SOLUTION:
         for i in range(0, c.swarmSize):
             while not os.path.exists("fitness" + str(self.myID) + "." + str(i) + ".txt"):
                 time.sleep(0.01)
-            inFile = open("fitness"+str(self.myID)+"." + str(i) + ".txt", 'r')
+            time.sleep(0.1)
+            inFile = open(r"fitness"+str(self.myID)+"." + str(i) + ".txt", 'r')
             temp_fitness = float(inFile.read())
             inFile.close()
             os.system("del fitness" + str(self.myID) + "." + str(i) + ".txt")

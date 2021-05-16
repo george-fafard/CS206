@@ -1,9 +1,13 @@
 import numpy as np
 
+# A/B Test number
+A_B_TESTS = 10
+
+
 # number of generations
 numberOfGenerations = 10
 populationSize = 10
-swarmSize = 9
+swarmSize = 8
 NUM_BOXES = 10
 
 # common constants
